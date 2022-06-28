@@ -1,0 +1,12 @@
+D:\Projectos\Web\.net\challenges\SocialNetwork\src\SocialNetwork.Domain\bin\Debug\net6.0\SocialNetwork.Domain.deps.json
+D:\Projectos\Web\.net\challenges\SocialNetwork\src\SocialNetwork.Domain\bin\Debug\net6.0\SocialNetwork.Domain.dll
+D:\Projectos\Web\.net\challenges\SocialNetwork\src\SocialNetwork.Domain\bin\Debug\net6.0\SocialNetwork.Domain.pdb
+D:\Projectos\Web\.net\challenges\SocialNetwork\src\SocialNetwork.Domain\obj\Debug\net6.0\SocialNetwork.Domain.csproj.AssemblyReference.cache
+D:\Projectos\Web\.net\challenges\SocialNetwork\src\SocialNetwork.Domain\obj\Debug\net6.0\SocialNetwork.Domain.GeneratedMSBuildEditorConfig.editorconfig
+D:\Projectos\Web\.net\challenges\SocialNetwork\src\SocialNetwork.Domain\obj\Debug\net6.0\SocialNetwork.Domain.AssemblyInfoInputs.cache
+D:\Projectos\Web\.net\challenges\SocialNetwork\src\SocialNetwork.Domain\obj\Debug\net6.0\SocialNetwork.Domain.AssemblyInfo.cs
+D:\Projectos\Web\.net\challenges\SocialNetwork\src\SocialNetwork.Domain\obj\Debug\net6.0\SocialNetwork.Domain.csproj.CoreCompileInputs.cache
+D:\Projectos\Web\.net\challenges\SocialNetwork\src\SocialNetwork.Domain\obj\Debug\net6.0\SocialNetwork.Domain.dll
+D:\Projectos\Web\.net\challenges\SocialNetwork\src\SocialNetwork.Domain\obj\Debug\net6.0\refint\SocialNetwork.Domain.dll
+D:\Projectos\Web\.net\challenges\SocialNetwork\src\SocialNetwork.Domain\obj\Debug\net6.0\SocialNetwork.Domain.pdb
+D:\Projectos\Web\.net\challenges\SocialNetwork\src\SocialNetwork.Domain\obj\Debug\net6.0\ref\SocialNetwork.Domain.dll
