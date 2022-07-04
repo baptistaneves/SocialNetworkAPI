@@ -10,3 +10,8 @@ D:\Projectos\Web\.net\challenges\SocialNetwork\src\SocialNetwork.Dal\obj\Debug\n
 D:\Projectos\Web\.net\challenges\SocialNetwork\src\SocialNetwork.Dal\obj\Debug\net6.0\refint\SocialNetwork.Dal.dll
 D:\Projectos\Web\.net\challenges\SocialNetwork\src\SocialNetwork.Dal\obj\Debug\net6.0\SocialNetwork.Dal.pdb
 D:\Projectos\Web\.net\challenges\SocialNetwork\src\SocialNetwork.Dal\obj\Debug\net6.0\ref\SocialNetwork.Dal.dll
+D:\Projectos\Web\.net\challenges\SocialNetwork\src\SocialNetwork.Dal\bin\Debug\net6.0\SocialNetwork.Dal.runtimeconfig.json
+D:\Projectos\Web\.net\challenges\SocialNetwork\src\SocialNetwork.Dal\bin\Debug\net6.0\SocialNetwork.Domain.dll
+D:\Projectos\Web\.net\challenges\SocialNetwork\src\SocialNetwork.Dal\bin\Debug\net6.0\SocialNetwork.Domain.pdb
+D:\Projectos\Web\.net\challenges\SocialNetwork\src\SocialNetwork.Dal\obj\Debug\net6.0\SocialNetwork.Dal.csproj.CopyComplete
+D:\Projectos\Web\.net\challenges\SocialNetwork\src\SocialNetwork.Dal\obj\Debug\net6.0\SocialNetwork.Dal.genruntimeconfig.cache

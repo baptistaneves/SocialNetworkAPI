@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using SocialNetwork.Domain.Models;
 
 namespace SocialNetwork.Api.Controllers.V2
 {
@@ -10,9 +9,9 @@ namespace SocialNetwork.Api.Controllers.V2
     {
         [HttpGet]
         [Route("{id}")]
-        public ActionResult<Post> GetById(int id)
+        public ActionResult GetById(int id)
         {
-            return Ok(new Post{ Id = id, Text = "Hello, Universe!" });
+            return Ok();
         }
     }
 }
