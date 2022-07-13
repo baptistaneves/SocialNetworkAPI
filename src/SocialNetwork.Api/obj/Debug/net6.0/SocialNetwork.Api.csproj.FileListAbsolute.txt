@@ -70,3 +70,10 @@ D:\Projectos\Web\.net\challenges\SocialNetwork\src\SocialNetwork.Api\bin\Debug\n
 D:\Projectos\Web\.net\challenges\SocialNetwork\src\SocialNetwork.Api\bin\Debug\net6.0\runtimes\win\lib\netcoreapp3.0\System.Windows.Extensions.dll
 D:\Projectos\Web\.net\challenges\SocialNetwork\src\SocialNetwork.Api\bin\Debug\net6.0\SocialNetwork.Dal.dll
 D:\Projectos\Web\.net\challenges\SocialNetwork\src\SocialNetwork.Api\bin\Debug\net6.0\SocialNetwork.Dal.pdb
+D:\Projectos\Web\.net\challenges\SocialNetwork\src\SocialNetwork.Api\bin\Debug\net6.0\AutoMapper.dll
+D:\Projectos\Web\.net\challenges\SocialNetwork\src\SocialNetwork.Api\bin\Debug\net6.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+D:\Projectos\Web\.net\challenges\SocialNetwork\src\SocialNetwork.Api\bin\Debug\net6.0\MediatR.dll
+D:\Projectos\Web\.net\challenges\SocialNetwork\src\SocialNetwork.Api\bin\Debug\net6.0\MediatR.Contracts.dll
+D:\Projectos\Web\.net\challenges\SocialNetwork\src\SocialNetwork.Api\bin\Debug\net6.0\MediatR.Extensions.Microsoft.DependencyInjection.dll
+D:\Projectos\Web\.net\challenges\SocialNetwork\src\SocialNetwork.Api\bin\Debug\net6.0\SocialNetwork.Application.dll
+D:\Projectos\Web\.net\challenges\SocialNetwork\src\SocialNetwork.Api\bin\Debug\net6.0\SocialNetwork.Application.pdb

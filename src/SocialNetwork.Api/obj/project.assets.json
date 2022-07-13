@@ -2,7 +2,7 @@
   "version": 3,
   "targets": {
     "net6.0": {
-      "AutoMapper/11.0.0": {
+      "AutoMapper/11.0.1": {
         "type": "package",
         "dependencies": {
           "Microsoft.CSharp": "4.7.0"
@@ -25,6 +25,15 @@
         },
         "runtime": {
           "lib/netstandard2.1/AutoMapper.Extensions.Microsoft.DependencyInjection.dll": {}
+        }
+      },
+      "FluentValidation/11.1.0": {
+        "type": "package",
+        "compile": {
+          "lib/net6.0/FluentValidation.dll": {}
+        },
+        "runtime": {
+          "lib/net6.0/FluentValidation.dll": {}
         }
       },
       "Humanizer.Core/2.8.26": {
@@ -851,6 +860,22 @@
           }
         }
       },
+      "SocialNetwork.Application/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "dependencies": {
+          "AutoMapper": "11.0.1",
+          "MediatR": "10.0.1",
+          "SocialNetwork.Dal": "1.0.0",
+          "SocialNetwork.Domain": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/SocialNetwork.Application.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/SocialNetwork.Application.dll": {}
+        }
+      },
       "SocialNetwork.Dal/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v6.0",
@@ -870,6 +895,9 @@
       "SocialNetwork.Domain/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v6.0",
+        "dependencies": {
+          "FluentValidation": "11.1.0"
+        },
         "compile": {
           "bin/placeholder/SocialNetwork.Domain.dll": {}
         },
@@ -880,15 +908,15 @@
     }
   },
   "libraries": {
-    "AutoMapper/11.0.0": {
-      "sha512": "+596AnKykYCk9RxXCEF4GYuapSebQtFVvIA1oVG1rrRkCLAC7AkWehJ0brCfYUbdDW3v1H/p0W3hob7JoXGjMw==",
+    "AutoMapper/11.0.1": {
+      "sha512": "WIadGC1pIwbnyTubvI577p3F++Bsj9q2Q3OaAc1I0QS+JhupN1xkdrPBhI9bPIeg63zM81tZplUNYkqU1HE5jQ==",
       "type": "package",
-      "path": "automapper/11.0.0",
+      "path": "automapper/11.0.1",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "README.md",
-        "automapper.11.0.0.nupkg.sha512",
+        "automapper.11.0.1.nupkg.sha512",
         "automapper.nuspec",
         "icon.png",
         "lib/netstandard2.1/AutoMapper.dll",
@@ -907,6 +935,27 @@
         "automapper.extensions.microsoft.dependencyinjection.nuspec",
         "icon.png",
         "lib/netstandard2.1/AutoMapper.Extensions.Microsoft.DependencyInjection.dll"
+      ]
+    },
+    "FluentValidation/11.1.0": {
+      "sha512": "Ld7w+2jOmnhQqFkngEGuEWTRa5j6u4Xzli7jKxRtbA5PtuHHcpin01qxvxYL0LomeJuzRMGAOURu2rKONdjKQA==",
+      "type": "package",
+      "path": "fluentvalidation/11.1.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "README.md",
+        "fluent-validation-icon.png",
+        "fluentvalidation.11.1.0.nupkg.sha512",
+        "fluentvalidation.nuspec",
+        "lib/net5.0/FluentValidation.dll",
+        "lib/net5.0/FluentValidation.xml",
+        "lib/net6.0/FluentValidation.dll",
+        "lib/net6.0/FluentValidation.xml",
+        "lib/netstandard2.0/FluentValidation.dll",
+        "lib/netstandard2.0/FluentValidation.xml",
+        "lib/netstandard2.1/FluentValidation.dll",
+        "lib/netstandard2.1/FluentValidation.xml"
       ]
     },
     "Humanizer.Core/2.8.26": {
@@ -2424,6 +2473,11 @@
         "version.txt"
       ]
     },
+    "SocialNetwork.Application/1.0.0": {
+      "type": "project",
+      "path": "../SocialNetwork.Application/SocialNetwork.Application.csproj",
+      "msbuildProject": "../SocialNetwork.Application/SocialNetwork.Application.csproj"
+    },
     "SocialNetwork.Dal/1.0.0": {
       "type": "project",
       "path": "../SocialNetwork.Dal/SocialNetwork.Dal.csproj",
@@ -2444,6 +2498,7 @@
       "Microsoft.EntityFrameworkCore >= 6.0.6",
       "Microsoft.EntityFrameworkCore.SqlServer >= 6.0.6",
       "Microsoft.EntityFrameworkCore.Tools >= 6.0.6",
+      "SocialNetwork.Application >= 1.0.0",
       "SocialNetwork.Dal >= 1.0.0",
       "SocialNetwork.Domain >= 1.0.0",
       "Swashbuckle.AspNetCore >= 6.3.1"
@@ -2482,6 +2537,9 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
+            "D:\\Projectos\\Web\\.net\\challenges\\SocialNetwork\\src\\SocialNetwork.Application\\SocialNetwork.Application.csproj": {
+              "projectPath": "D:\\Projectos\\Web\\.net\\challenges\\SocialNetwork\\src\\SocialNetwork.Application\\SocialNetwork.Application.csproj"
+            },
             "D:\\Projectos\\Web\\.net\\challenges\\SocialNetwork\\src\\SocialNetwork.Dal\\SocialNetwork.Dal.csproj": {
               "projectPath": "D:\\Projectos\\Web\\.net\\challenges\\SocialNetwork\\src\\SocialNetwork.Dal\\SocialNetwork.Dal.csproj"
             },

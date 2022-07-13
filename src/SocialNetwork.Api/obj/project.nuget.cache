@@ -1,11 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "/Kh/OAtEOk/3ZG2chvNfaTVVaqxZ8iVAKy4IrJ44GUGKiKbmSpEKiwOm6x06XYWhAo2WJ1GjoWHefeLcAp0tFA==",
+  "dgSpecHash": "JFzvvUeaaoHNzvSbVz1XG9OXTtZyNZnOMJdqOqkaCfvCdYDt7vETU/B1cmBcIGXe+1z3aObXVvd2sUE0+vL6KQ==",
   "success": true,
   "projectFilePath": "D:\\Projectos\\Web\\.net\\challenges\\SocialNetwork\\src\\SocialNetwork.Api\\SocialNetwork.Api.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\Baptista Neves\\.nuget\\packages\\automapper\\11.0.0\\automapper.11.0.0.nupkg.sha512",
+    "C:\\Users\\Baptista Neves\\.nuget\\packages\\automapper\\11.0.1\\automapper.11.0.1.nupkg.sha512",
     "C:\\Users\\Baptista Neves\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\11.0.0\\automapper.extensions.microsoft.dependencyinjection.11.0.0.nupkg.sha512",
+    "C:\\Users\\Baptista Neves\\.nuget\\packages\\fluentvalidation\\11.1.0\\fluentvalidation.11.1.0.nupkg.sha512",
     "C:\\Users\\Baptista Neves\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\Baptista Neves\\.nuget\\packages\\mediatr\\10.0.1\\mediatr.10.0.1.nupkg.sha512",
     "C:\\Users\\Baptista Neves\\.nuget\\packages\\mediatr.contracts\\1.0.1\\mediatr.contracts.1.0.1.nupkg.sha512",

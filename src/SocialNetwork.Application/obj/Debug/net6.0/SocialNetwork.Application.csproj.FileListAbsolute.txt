@@ -10,3 +10,8 @@ D:\Projectos\Web\.net\challenges\SocialNetwork\src\SocialNetwork.Application\obj
 D:\Projectos\Web\.net\challenges\SocialNetwork\src\SocialNetwork.Application\obj\Debug\net6.0\refint\SocialNetwork.Application.dll
 D:\Projectos\Web\.net\challenges\SocialNetwork\src\SocialNetwork.Application\obj\Debug\net6.0\SocialNetwork.Application.pdb
 D:\Projectos\Web\.net\challenges\SocialNetwork\src\SocialNetwork.Application\obj\Debug\net6.0\ref\SocialNetwork.Application.dll
+D:\Projectos\Web\.net\challenges\SocialNetwork\src\SocialNetwork.Application\bin\Debug\net6.0\SocialNetwork.Dal.dll
+D:\Projectos\Web\.net\challenges\SocialNetwork\src\SocialNetwork.Application\bin\Debug\net6.0\SocialNetwork.Domain.dll
+D:\Projectos\Web\.net\challenges\SocialNetwork\src\SocialNetwork.Application\bin\Debug\net6.0\SocialNetwork.Dal.pdb
+D:\Projectos\Web\.net\challenges\SocialNetwork\src\SocialNetwork.Application\bin\Debug\net6.0\SocialNetwork.Domain.pdb
+D:\Projectos\Web\.net\challenges\SocialNetwork\src\SocialNetwork.Application\obj\Debug\net6.0\SocialNetwork.Application.csproj.CopyComplete

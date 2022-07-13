@@ -1,10 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "yDM7UOxJFw/Byb6qjfYnW/z+TltDUJiP2dpHalQSdiTlnVi+144kD7qgoQb5ITZesrksdd0EEjxjE0m53gvuyQ==",
+  "dgSpecHash": "P5iiPU7L6ZMCbtaN7RnHoBqadgVH6sqUsOYwpGJMiB/dtsnj27pooV8EGjMoYg90T5R/2LAsgirnnObh8DwgKQ==",
   "success": true,
   "projectFilePath": "D:\\Projectos\\Web\\.net\\challenges\\SocialNetwork\\src\\SocialNetwork.Application\\SocialNetwork.Application.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Baptista Neves\\.nuget\\packages\\automapper\\11.0.1\\automapper.11.0.1.nupkg.sha512",
+    "C:\\Users\\Baptista Neves\\.nuget\\packages\\fluentvalidation\\11.1.0\\fluentvalidation.11.1.0.nupkg.sha512",
     "C:\\Users\\Baptista Neves\\.nuget\\packages\\mediatr\\10.0.1\\mediatr.10.0.1.nupkg.sha512",
     "C:\\Users\\Baptista Neves\\.nuget\\packages\\mediatr.contracts\\1.0.1\\mediatr.contracts.1.0.1.nupkg.sha512",
     "C:\\Users\\Baptista Neves\\.nuget\\packages\\microsoft.aspnetcore.cryptography.internal\\6.0.6\\microsoft.aspnetcore.cryptography.internal.6.0.6.nupkg.sha512",

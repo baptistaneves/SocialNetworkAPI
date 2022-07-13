@@ -7,6 +7,7 @@
         public class UserProfile
         {
             public const string IdRoute = "{id}";
+
         }
 
         public class Post

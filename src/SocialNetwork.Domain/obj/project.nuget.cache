@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "Uvdi4Po+i90VVjgbKu3EVZJVJ0RXGcEo3nsCCgZwWiYA/JwODIpjZ6w7gDYVyHqDlLjztnxdHNYo319EMnomUg==",
+  "dgSpecHash": "BEhl2/verReeOzK/inYct15trGfVVfN58Fdvrh8UhItcIcsw8G9VC+cumoDkq5W103rwS41zpead+mElF40zlg==",
   "success": true,
   "projectFilePath": "D:\\Projectos\\Web\\.net\\challenges\\SocialNetwork\\src\\SocialNetwork.Domain\\SocialNetwork.Domain.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\Baptista Neves\\.nuget\\packages\\fluentvalidation\\11.1.0\\fluentvalidation.11.1.0.nupkg.sha512"
+  ],
   "logs": []
 }

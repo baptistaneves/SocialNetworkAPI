@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Versioning;
+using SocialNetwork.Api.Filters;
 
 namespace SocialNetwork.Api.Registrars
 {
@@ -7,7 +8,10 @@ namespace SocialNetwork.Api.Registrars
     {
         public void RegisterServices(WebApplicationBuilder builder)
         {
-            builder.Services.AddControllers();
+            builder.Services.AddControllers(config =>
+            {
+                config.Filters.Add(typeof(ApiExceptionHandler));
+            });
 
             builder.Services.AddApiVersioning(config =>
             {
