@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using Microsoft.EntityFrameworkCore;
+using SocialNetwork.Application.Enums;
 using SocialNetwork.Application.Models;
 using SocialNetwork.Application.UserProfiles.Queries;
 using SocialNetwork.Dal.Context;
@@ -22,7 +23,15 @@ namespace SocialNetwork.Application.UserProfiles.QueryHandlers
         {
             var result = new OperationResult<IEnumerable<UserProfile>>();
 
-            result.Payload =  await _context.UserProfiles.ToListAsync();
+            try
+            {
+                result.Payload = await _context.UserProfiles.ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                result.IsError = true;
+                result.Errors.Add(new Error { Code = ErrorCode.UnknownError, Message = ex.Message });
+            }
 
             return result;
         }

@@ -12,7 +12,9 @@
 
         public class Post
         {
-            public const string GetById = "{id}";
+            public const string IdRoute = "{id}";
+            public const string PostComments = "{postId}/comments";
+            public const string CommentById = "{postId}/comments/{commentId}";
         }
     }
 }

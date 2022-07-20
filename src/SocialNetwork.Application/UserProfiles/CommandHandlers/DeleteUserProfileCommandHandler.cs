@@ -21,24 +21,37 @@ namespace SocialNetwork.Application.UserProfiles.CommandHandlers
         {
             var result = new OperationResult<UserProfile>();
 
-            var userProfile = await _context.UserProfiles
+            try
+            {
+                var userProfile = await _context.UserProfiles
                 .FirstOrDefaultAsync(up => up.UserProfileId == request.UserProfileId);
 
 
-            if(userProfile is null)
-            {
-                result.IsError = true;
-                result.Errors.Add(new Error { Code = ErrorCode.NotFound, 
-                    Message = $"No User Profile found with the especified ID {request.UserProfileId}" });
-                return result;
+                if (userProfile is null)
+                {
+                    result.IsError = true;
+                    result.Errors.Add(new Error
+                    {
+                        Code = ErrorCode.NotFound,
+                        Message = $"No User Profile found with the especified ID {request.UserProfileId}"
+                    });
+                    return result;
+                }
+
+                _context.UserProfiles.Remove(userProfile);
+
+                await _context.SaveChangesAsync();
+
+                result.Payload = userProfile;
+
             }
+            catch (Exception ex)
+            {
 
-            _context.UserProfiles.Remove(userProfile);
-
-            await _context.SaveChangesAsync();
-
-            result.Payload = userProfile;
-
+                result.IsError = true;
+                result.Errors.Add(new Error { Code = ErrorCode.UnknownError, Message = ex.Message });
+            }
+            
             return result;
         }
     }

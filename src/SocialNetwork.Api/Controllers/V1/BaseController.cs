@@ -7,7 +7,7 @@ namespace SocialNetwork.Api.Controllers.V1
 {
     public class BaseController : ControllerBase
     {
-        protected ActionResult HandleErrorResponse(IEnumerable<Error> errors)
+        protected ActionResult HandleErrorResponse(List<Error> errors)
         {
             var apiError = new ErrorResponse();
 
@@ -23,12 +23,12 @@ namespace SocialNetwork.Api.Controllers.V1
                 return NotFound(apiError);
             }
 
-            apiError.StatusCode = 500;
-            apiError.StatusPhrase = "Internal server Error";
+            apiError.StatusCode = 400;
+            apiError.StatusPhrase = "Bad Request";
             apiError.Timestamp = DateTime.Now;
-            apiError.Errors.Add("Unknown error");
+            errors.ForEach(e => apiError.Errors.Add(e.Message));
 
-            return StatusCode(500, apiError);
+            return BadRequest(apiError);
         }
     }
 }

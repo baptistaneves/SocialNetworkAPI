@@ -8,9 +8,9 @@ namespace SocialNetwork.Domain.Validators.UserProfileValidators
         public BasicInfoValidator()
         {
             RuleFor(info => info.FirstName)
-           .NotEmpty().WithMessage("First name is required. It is currently null")
-           .MinimumLength(3).WithMessage("First name must be at least 3 characters long")
-           .MaximumLength(50).WithMessage("First name can contain at most 50 characters long");
+               .NotEmpty().WithMessage("First name is required. It is currently null")
+               .MinimumLength(3).WithMessage("First name must be at least 3 characters long")
+               .MaximumLength(50).WithMessage("First name can contain at most 50 characters long");
             RuleFor(info => info.LastName)
                 .NotEmpty().WithMessage("Last name is required. It is currently null")
                 .MinimumLength(3).WithMessage("Last name must be at least 3 characters long")

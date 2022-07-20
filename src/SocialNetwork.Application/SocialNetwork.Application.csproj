@@ -12,13 +12,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Posts\Commands\" />
-    <Folder Include="Posts\CommandHandlers\" />
-    <Folder Include="Posts\QueryHandlers\" />
-    <Folder Include="Posts\Queries\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\SocialNetwork.Dal\SocialNetwork.Dal.csproj" />
     <ProjectReference Include="..\SocialNetwork.Domain\SocialNetwork.Domain.csproj" />
   </ItemGroup>

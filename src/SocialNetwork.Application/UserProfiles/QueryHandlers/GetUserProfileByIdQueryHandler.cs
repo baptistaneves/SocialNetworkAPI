@@ -22,22 +22,30 @@ namespace SocialNetwork.Application.UserProfiles.QueryHandlers
         {
             var result = new OperationResult<UserProfile>();
 
-            var userProfile =  await _context.UserProfiles
+            try
+            {
+                var userProfile = await _context.UserProfiles
                 .FirstOrDefaultAsync(up => up.UserProfileId == request.UserProfileId);
 
-            if (userProfile is null)
+                if (userProfile is null)
+                {
+                    result.IsError = true;
+                    result.Errors.Add(new Error
+                    {
+                        Code = ErrorCode.NotFound,
+                        Message = $"No User Profile found with the especified ID {request.UserProfileId}"
+                    });
+                    return result;
+                }
+
+                result.Payload = userProfile;
+            }
+            catch (Exception ex)
             {
                 result.IsError = true;
-                result.Errors.Add(new Error
-                {
-                    Code = ErrorCode.NotFound,
-                    Message = $"No User Profile found with the especified ID {request.UserProfileId}"
-                });
-                return result;
+                result.Errors.Add(new Error { Code = ErrorCode.UnknownError, Message = ex.Message });
             }
-
-            result.Payload = userProfile;
-
+            
             return result;
         }
     }

@@ -35,7 +35,7 @@ namespace SocialNetwork.Api.Controllers.V1
          
         [HttpGet]
         [Route(ApiRoutes.UserProfile.IdRoute)]
-        [ValidateGuid("id")]
+        [ValidateGuid("{id}")]
         public async Task<ActionResult> GetUserProfileById(string id)
         {
             var query = new GetUserProfileByIdQuery { UserProfileId = Guid.Parse(id) };
@@ -50,7 +50,7 @@ namespace SocialNetwork.Api.Controllers.V1
 
         [HttpDelete]
         [Route(ApiRoutes.UserProfile.IdRoute)]
-        [ValidateGuid("id")]
+        [ValidateGuid("{id}")]
         public async Task<ActionResult> DeleteUserProfile(string id)
         {
             var command = new DeleteUserProfileCommand { UserProfileId = Guid.Parse(id) };
@@ -67,8 +67,8 @@ namespace SocialNetwork.Api.Controllers.V1
             var response = await _mediator.Send(command);
             var userProfile = _mapper.Map<UserProfileResponse>(response.Payload);
 
-            return CreatedAtAction(nameof(GetUserProfileById), new { id = userProfile.UserProfileId }, 
-                userProfile);
+            return response.IsError ? HandleErrorResponse(response.Errors) :
+                CreatedAtAction(nameof(GetUserProfileById), new { id = userProfile.UserProfileId }, userProfile);
         }
 
         [HttpPatch]

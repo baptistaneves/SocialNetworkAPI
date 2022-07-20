@@ -1,8 +1,10 @@
 ﻿using MediatR;
+using SocialNetwork.Application.Enums;
 using SocialNetwork.Application.Models;
 using SocialNetwork.Application.UserProfiles.Commands;
 using SocialNetwork.Dal.Context;
 using SocialNetwork.Domain.Aggregates.UserProfileAggregate;
+using SocialNetwork.Domain.Exceptions;
 
 namespace SocialNetwork.Application.UserProfiles.CommandHandlers
 {
@@ -19,15 +21,33 @@ namespace SocialNetwork.Application.UserProfiles.CommandHandlers
         {
             var result = new OperationResult<UserProfile>();
 
-            var basicInfo = BasicInfo.CreateBasicInfo(request.FirstName, request.LastName,
-                request.EmailAddress, request.Phone, request.DateOfBirth, request.CurrentCity);
+            try
+            {
+                var basicInfo = BasicInfo.CreateBasicInfo(request.FirstName, request.LastName,
+                    request.EmailAddress, request.Phone, request.DateOfBirth, request.CurrentCity);
 
-            var userProfile = UserProfile.CreateUserProfile(Guid.NewGuid().ToString(), basicInfo);
+                var userProfile = UserProfile.CreateUserProfile(Guid.NewGuid().ToString(), basicInfo);
 
-            _context.UserProfiles.Add(userProfile);
-            await _context.SaveChangesAsync();
+                _context.UserProfiles.Add(userProfile);
+                await _context.SaveChangesAsync();
 
-            result.Payload = userProfile;
+                result.Payload = userProfile;
+            }
+
+            catch (UserProfileNotValidException ex)
+            {
+                result.IsError = true;
+                ex.ValidationErrors.ForEach(error =>
+                {
+                    result.Errors.Add(new Error { Code = ErrorCode.ValidationError, Message = $"{error}" });
+                });
+            }
+
+            catch (Exception ex)
+            {
+                result.IsError = true;
+                result.Errors.Add(new Error { Code = ErrorCode.UnknownError, Message = ex.Message });
+            }
 
             return result;
         }

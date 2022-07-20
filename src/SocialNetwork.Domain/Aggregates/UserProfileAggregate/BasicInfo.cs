@@ -27,6 +27,7 @@ namespace SocialNetwork.Domain.Aggregates.UserProfileAggregate
         /// <param name="currentCity">Current city</param>
         /// <returns><see cref="BasicInfo"/></returns>
         /// <exception cref="UserProfileNotValidException"></exception>
+        /// FACTORY
         public static BasicInfo CreateBasicInfo(string firstName, string lastName, 
             string emailAddress, string phone, DateTime dateOfBirth, string currentCity)
         {

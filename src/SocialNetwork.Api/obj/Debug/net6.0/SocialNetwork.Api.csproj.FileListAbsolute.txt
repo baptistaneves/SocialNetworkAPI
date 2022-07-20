@@ -77,3 +77,5 @@ D:\Projectos\Web\.net\challenges\SocialNetwork\src\SocialNetwork.Api\bin\Debug\n
 D:\Projectos\Web\.net\challenges\SocialNetwork\src\SocialNetwork.Api\bin\Debug\net6.0\MediatR.Extensions.Microsoft.DependencyInjection.dll
 D:\Projectos\Web\.net\challenges\SocialNetwork\src\SocialNetwork.Api\bin\Debug\net6.0\SocialNetwork.Application.dll
 D:\Projectos\Web\.net\challenges\SocialNetwork\src\SocialNetwork.Api\bin\Debug\net6.0\SocialNetwork.Application.pdb
+D:\Projectos\Web\.net\challenges\SocialNetwork\src\SocialNetwork.Api\bin\Debug\net6.0\FluentValidation.dll
+D:\Projectos\Web\.net\challenges\SocialNetwork\src\SocialNetwork.Api\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll

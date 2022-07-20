@@ -5,6 +5,7 @@ using SocialNetwork.Application.Models;
 using SocialNetwork.Application.UserProfiles.Commands;
 using SocialNetwork.Dal.Context;
 using SocialNetwork.Domain.Aggregates.UserProfileAggregate;
+using SocialNetwork.Domain.Exceptions;
 
 namespace SocialNetwork.Application.UserProfiles.CommandHandlers
 {
@@ -44,16 +45,24 @@ namespace SocialNetwork.Application.UserProfiles.CommandHandlers
                 await _context.SaveChangesAsync();
 
                 result.Payload = userProfile;
-
-                return result;
             }
+
+            catch (UserProfileNotValidException ex)
+            {
+                result.IsError = true;
+                ex.ValidationErrors.ForEach(error =>
+                {
+                    result.Errors.Add(new Error { Code = ErrorCode.ValidationError, Message = $"{error}" });
+                });
+            }
+
             catch (Exception e)
             {
                 Console.WriteLine(e);
+
                 result.IsError = true;
                 result.Errors.Add(new Error { Code = ErrorCode.ServerError, Message = e.Message});
             }
-
 
             return result;
         }

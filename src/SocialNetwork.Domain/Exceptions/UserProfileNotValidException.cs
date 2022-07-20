@@ -1,17 +1,10 @@
 ﻿namespace SocialNetwork.Domain.Exceptions
 {
-    public class UserProfileNotValidException : Exception
+    public class UserProfileNotValidException : NotValidException
     {
-        internal UserProfileNotValidException()
-        {
-            ValidationErrors = new List<string>();
-        }
+        public UserProfileNotValidException() {}
+        public UserProfileNotValidException(string message) : base(message) { }
+        public UserProfileNotValidException(string message, Exception inner) : base(message, inner) { }
 
-        internal UserProfileNotValidException(string message) : base(message)
-        {
-            ValidationErrors = new List<string>();
-        }
-
-        public List<string> ValidationErrors { get; }
     }
 }

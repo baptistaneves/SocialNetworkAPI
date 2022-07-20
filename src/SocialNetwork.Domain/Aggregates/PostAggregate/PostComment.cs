@@ -1,4 +1,7 @@
-﻿namespace SocialNetwork.Domain.Aggregates.PostAggregate
+﻿using SocialNetwork.Domain.Exceptions;
+using SocialNetwork.Domain.Validators.PostValidators;
+
+namespace SocialNetwork.Domain.Aggregates.PostAggregate
 {
     public class PostComment
     {
@@ -13,10 +16,22 @@
         public DateTime CreatedAt { get; private set; }
         public DateTime LastModified { get; private set; }
 
-        //Factories
+        ///Factories
+        /// <summary>
+        /// Creates a post comment
+        /// </summary>
+        /// <param name="postId">The ID of post to which the comment belongs</param>
+        /// <param name="text">Text content of the comment</param>
+        /// <param name="userProfileId">The ID of user who created the comment</param>
+        /// <returns><see cref="PostComment"/></returns>
+        /// <exception cref="PostCommentNotValidException">Thrown if the data provided for the post comment
+        /// is not valid</exception>
+        ///Factories
         public static PostComment CreatePostComment(Guid postId, string text, Guid userProfileId)
         {
-            return new PostComment
+            var validator = new PostCommentValidator();
+
+            var objToValidate = new PostComment
             {
                 PostId = postId,
                 Text = text,
@@ -24,6 +39,19 @@
                 CreatedAt = DateTime.UtcNow,
                 LastModified = DateTime.UtcNow
             };
+
+            var validationResult = validator.Validate(objToValidate);
+
+            if (validationResult.IsValid) return objToValidate;
+
+            var exception = new PostCommentNotValidException("Post comment is not valid");
+
+            validationResult.Errors.ForEach(vr =>
+            {
+                exception.ValidationErrors.Add(vr.ErrorMessage);
+            });
+
+            throw exception;
         }
 
         //public methods

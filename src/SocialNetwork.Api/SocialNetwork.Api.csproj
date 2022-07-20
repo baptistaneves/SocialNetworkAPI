@@ -9,6 +9,7 @@
   <ItemGroup>
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="10.0.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.7" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning" Version="5.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer" Version="5.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.6" />
@@ -24,11 +25,6 @@
     <ProjectReference Include="..\SocialNetwork.Application\SocialNetwork.Application.csproj" />
     <ProjectReference Include="..\SocialNetwork.Dal\SocialNetwork.Dal.csproj" />
     <ProjectReference Include="..\SocialNetwork.Domain\SocialNetwork.Domain.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Contracts\Posts\Responses\" />
-    <Folder Include="Contracts\Posts\Requests\" />
   </ItemGroup>
 
 </Project>
