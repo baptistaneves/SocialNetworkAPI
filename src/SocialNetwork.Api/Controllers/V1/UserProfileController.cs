@@ -1,9 +1,6 @@
-﻿using AutoMapper;
-using MediatR;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
 using SocialNetwork.Api.Contracts.UserProfiles.Requests;
 using SocialNetwork.Api.Contracts.UserProfiles.Responses;
-using SocialNetwork.Api.Filters;
 using SocialNetwork.Application.UserProfiles.Commands;
 using SocialNetwork.Application.UserProfiles.Queries;
 
@@ -12,6 +9,7 @@ namespace SocialNetwork.Api.Controllers.V1
     [ApiVersion("1.0")]
     [Route(ApiRoutes.BaseRoute)]
     [ApiController]
+    [Authorize]
     public class UserProfileController : BaseController
     {
         private readonly IMediator _mediator;

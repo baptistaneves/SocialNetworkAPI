@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace SocialNetwork.Api.Contracts.Posts.Requests
+﻿namespace SocialNetwork.Api.Contracts.Posts.Requests
 {
     public class PostCreate
     {
