@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using SocialNetwork.Api.Contracts.UserProfiles.Requests;
+﻿using SocialNetwork.Api.Contracts.UserProfiles.Requests;
 using SocialNetwork.Api.Contracts.UserProfiles.Responses;
 using SocialNetwork.Application.UserProfiles.Commands;
 using SocialNetwork.Application.UserProfiles.Queries;
@@ -58,7 +57,7 @@ namespace SocialNetwork.Api.Controllers.V1
         }
 
         [HttpPost]
-        [ValidateModel]
+        [ValidateModel] 
         public async Task<ActionResult> CreateUserProfile([FromBody] UserProfileCreateUpdate profile)
         {
             var command = _mapper.Map<CreateUserCommand>(profile);

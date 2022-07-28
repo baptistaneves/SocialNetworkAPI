@@ -13,7 +13,12 @@
         IdentityUserAlreadyExists = 201,
         IdentityCreationFaild = 202,
         IdentityUserDoesNotExist = 203,
-        IncorrectPassword = 204,
-        LockoutOnFailure = 205
+        InexistenUserProfile = 204,
+        IncorrectPassword = 205,
+        LockoutOnFailure = 206,
+
+        //Application error should be in the range 300-399
+        PostUpdateNotPossible = 300,
+        PostDeleteNotPossible = 301
     }
 }

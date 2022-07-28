@@ -46,7 +46,7 @@ namespace SocialNetwork.Application.Identity.Handlers
                 var userProfile = await CreateUserProfile(result, request, transaction, identity);
                 await transaction.CommitAsync();
 
-                result.Payload = CreateClaimsIdentity(identity, userProfile);
+                result.Payload = GetJwtString(identity, userProfile);
             }
 
             catch (UserProfileNotValidException ex)
@@ -137,7 +137,7 @@ namespace SocialNetwork.Application.Identity.Handlers
             }
         }
 
-        private string CreateClaimsIdentity(IdentityUser identity, UserProfile userProfile)
+        private string GetJwtString(IdentityUser identity, UserProfile userProfile)
         {
             var claimsIdentity = new ClaimsIdentity(new Claim[]
                 {

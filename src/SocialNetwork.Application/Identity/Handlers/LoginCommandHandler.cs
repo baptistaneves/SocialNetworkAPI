@@ -6,6 +6,7 @@ using SocialNetwork.Application.Identity.Commands;
 using SocialNetwork.Application.Models;
 using SocialNetwork.Application.Services;
 using SocialNetwork.Dal.Context;
+using SocialNetwork.Domain.Aggregates.UserProfileAggregate;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 
@@ -36,20 +37,12 @@ namespace SocialNetwork.Application.Identity.Handlers
 
             try
             {
-                var identityUser = await _userManager.FindByEmailAsync(request.UserName);
+                var identity = await ValidateUserName(result, request);
 
-                if (identityUser is null)
-                {
-                    result.IsError = true;
-                    result.Errors.Add(new Error { Code = ErrorCode.IncorrectPassword,
-                        Message = $"Wrong username or password. Login failed."
-                    });
-
-                    return result;
-                }
+                if(identity == null) return result;
 
                 var validPassword = await _signInManager
-                    .CheckPasswordSignInAsync(identityUser, request.Password, true);
+                    .CheckPasswordSignInAsync(identity, request.Password, true);
 
                 if(validPassword.IsLockedOut)
                 {
@@ -64,20 +57,9 @@ namespace SocialNetwork.Application.Identity.Handlers
                 if (validPassword.Succeeded)
                 {
                     var userProfile = await _context.UserProfiles
-                        .FirstOrDefaultAsync(up => up.IdentityId == identityUser.Id);
+                        .FirstOrDefaultAsync(up => up.IdentityId == identity.Id);
 
-                    var claimsIdentity = new ClaimsIdentity(new Claim[]
-                    {
-                        new Claim(JwtRegisteredClaimNames.Sub, identityUser.Email),
-                        new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                        new Claim(JwtRegisteredClaimNames.Email, identityUser.Email),
-                        new Claim("IdentityId", identityUser.Id),
-                        new Claim("UserProfileId", userProfile.UserProfileId.ToString())
-                    });
-
-                    var token = _identityService.CreateSecurityToken(claimsIdentity);
-
-                    result.Payload = _identityService.WriteToken(token);
+                    result.Payload = GetJwtString(identity, userProfile);
 
                     return result;
                 }
@@ -95,6 +77,41 @@ namespace SocialNetwork.Application.Identity.Handlers
             }
 
             return result;
+        }
+
+        private async Task<IdentityUser> ValidateUserName(OperationResult<string> result, LoginCommand request)
+        {
+            var identity = await _userManager.FindByEmailAsync(request.UserName);
+
+            if (identity is null)
+            {
+                result.IsError = true;
+                result.Errors.Add(new Error
+                {
+                    Code = ErrorCode.IncorrectPassword,
+                    Message = $"Wrong username or password. Login failed."
+                });
+
+                return null;
+            }
+
+            return identity;
+        }
+
+        private string GetJwtString(IdentityUser identity, UserProfile userProfile)
+        {
+            var claimsIdentity = new ClaimsIdentity(new Claim[]
+                {
+                    new Claim(JwtRegisteredClaimNames.Sub, identity.Email),
+                    new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                    new Claim(JwtRegisteredClaimNames.Email, identity.Email),
+                    new Claim("IdentityId", identity.Id),
+                    new Claim("UserProfileId", userProfile.UserProfileId.ToString())
+                });
+
+            var token = _identityService.CreateSecurityToken(claimsIdentity);
+
+            return _identityService.WriteToken(token);
         }
     }
 }

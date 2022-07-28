@@ -7,5 +7,6 @@ namespace SocialNetwork.Application.Posts.Commands
     public class DeletePostCommand : IRequest<OperationResult<Post>>
     {
         public Guid PostId { get; set; }
+        public Guid UserProfileId { get; set; }
     }
 }

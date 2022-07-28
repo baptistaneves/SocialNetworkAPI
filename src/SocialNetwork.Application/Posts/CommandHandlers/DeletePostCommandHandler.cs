@@ -38,6 +38,19 @@ namespace SocialNetwork.Application.Posts.CommandHandlers
                     return result;
                 }
 
+                if (post.UserProfileId != request.UserProfileId)
+                {
+                    result.IsError = true;
+                    var error = new Error
+                    {
+                        Code = ErrorCode.PostDeleteNotPossible,
+                        Message = $"Post delete not possible because it's not the post owner that initiates the update"
+                    };
+                    result.Errors.Add(error);
+
+                    return result;
+                }
+
                 _context.Posts.Remove(post);
 
                 await _context.SaveChangesAsync();

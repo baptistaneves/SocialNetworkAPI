@@ -1,10 +1,6 @@
-﻿using AutoMapper;
-using MediatR;
-using Microsoft.AspNetCore.Mvc;
-using SocialNetwork.Api.Contracts.Common;
+﻿using SocialNetwork.Api.Contracts.Common;
 using SocialNetwork.Api.Contracts.Posts.Requests;
 using SocialNetwork.Api.Contracts.Posts.Responses;
-using SocialNetwork.Api.Filters;
 using SocialNetwork.Application.Posts.Commands;
 using SocialNetwork.Application.Posts.Queries;
 
@@ -13,6 +9,7 @@ namespace SocialNetwork.Api.Controllers.V1
     [ApiVersion("1.0")]
     [Route(ApiRoutes.BaseRoute)]
     [ApiController]
+    [Authorize]
     public class PostsController : BaseController
     {
         private readonly IMediator _mediator;
@@ -48,7 +45,9 @@ namespace SocialNetwork.Api.Controllers.V1
         [ValidateGuid("{id}")]
         public async Task<ActionResult> DeletePost(string id)
         {
-            var command = new DeletePostCommand { PostId = Guid.Parse(id) };
+            var userProfileId = HttpContext.GetUserProfileIdClaimValue();
+
+            var command = new DeletePostCommand { PostId = Guid.Parse(id), UserProfileId = userProfileId };
             var result = await _mediator.Send(command);
 
             return result.IsError ? HandleErrorResponse(result.Errors) : NoContent();
@@ -58,9 +57,11 @@ namespace SocialNetwork.Api.Controllers.V1
         [ValidateModel]
         public async Task<ActionResult> CreatePost([FromBody] PostCreate newPost)
         {
+            var userProfileId = HttpContext.GetUserProfileIdClaimValue();
+
             var command = new CreatePostCommand()
             {
-                UserProfileId = Guid.Parse(newPost.UserProfileId),
+                UserProfileId = userProfileId,
                 TextContent = newPost.TextContent
             };
 
@@ -77,10 +78,13 @@ namespace SocialNetwork.Api.Controllers.V1
         [ValidateModel]
         public async Task<ActionResult> UpdatePostContent(string id, [FromBody] PostUpdate updatedPost)
         {
+            var userProfileId = HttpContext.GetUserProfileIdClaimValue();
+
             var command = new UpdatePostContentCommand()
             {
                 NewText = updatedPost.TextContent,
-                PostId = Guid.Parse(id)
+                PostId = Guid.Parse(id),
+                UserProfileId = userProfileId
             };
 
             var response = await _mediator.Send(command);
