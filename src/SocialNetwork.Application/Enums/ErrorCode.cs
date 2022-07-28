@@ -11,6 +11,9 @@
 
         //Infrastructure erros should be in the range 200-299
         IdentityUserAlreadyExists = 201,
-        IdentityCreationFaild = 202
+        IdentityCreationFaild = 202,
+        IdentityUserDoesNotExist = 203,
+        IncorrectPassword = 204,
+        LockoutOnFailure = 205
     }
 }

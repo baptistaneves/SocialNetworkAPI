@@ -8,6 +8,7 @@ namespace SocialNetwork.Api.MappingProfile
         public IdentityMapping()
         {
             CreateMap<UserRegistration, RegisterIdentityCommand>();
+            CreateMap<Login, LoginCommand>();
         }
     }
 }

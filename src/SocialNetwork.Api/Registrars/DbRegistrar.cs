@@ -17,6 +17,7 @@
                 options.Password.RequiredLength = 5;
                 options.Password.RequireNonAlphanumeric = false;
             })
+            .AddSignInManager<SignInManager<IdentityUser>>()
             .AddEntityFrameworkStores<DataContext>();
         }
     }
