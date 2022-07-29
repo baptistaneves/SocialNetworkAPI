@@ -23,12 +23,11 @@ namespace SocialNetwork.Application.Posts.QueryHandlers
 
             try 
             {
-                result.Payload = await _context.Posts.ToListAsync();
+                result.Payload = await _context.Posts.ToListAsync(cancellationToken);
             }
             catch (Exception ex)
             {
-                result.IsError = true;
-                result.Errors.Add(new Error { Code = ErrorCode.UnknownError, Message = ex.Message });
+                result.AddUnknownError($"{ex.Message}");
             }
 
             return result;

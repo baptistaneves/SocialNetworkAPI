@@ -39,18 +39,14 @@ namespace SocialNetwork.Application.Identity.Handlers
             {
                 var identity = await ValidateUserName(result, request);
 
-                if(identity == null) return result;
+                if(result.IsError) return result;
 
                 var validPassword = await _signInManager
                     .CheckPasswordSignInAsync(identity, request.Password, true);
 
                 if(validPassword.IsLockedOut)
                 {
-                    result.IsError = true;
-                    result.Errors.Add(new Error { Code = ErrorCode.LockoutOnFailure,
-                        Message = $"User temporarily blocked for invalid attempts."
-                    });
-
+                    result.AddError(ErrorCode.LockoutOnFailure, IdentityErrorMessages.LockoutOnFailure);
                     return result;
                 }
 
@@ -64,16 +60,11 @@ namespace SocialNetwork.Application.Identity.Handlers
                     return result;
                 }
 
-                result.IsError = true;
-                result.Errors.Add(new Error { Code = ErrorCode.IncorrectPassword,
-                    Message = $"Wrong username or password. Login failed."
-                });
-
+                result.AddError(ErrorCode.IncorrectPassword, IdentityErrorMessages.IncorrectPassword);
             }
             catch (Exception ex)
             {
-                result.IsError = true;
-                result.Errors.Add(new Error { Code = ErrorCode.UnknownError, Message = ex.Message });
+                result.AddUnknownError($"{ex.Message}");
             }
 
             return result;
@@ -84,17 +75,8 @@ namespace SocialNetwork.Application.Identity.Handlers
             var identity = await _userManager.FindByEmailAsync(request.UserName);
 
             if (identity is null)
-            {
-                result.IsError = true;
-                result.Errors.Add(new Error
-                {
-                    Code = ErrorCode.IncorrectPassword,
-                    Message = $"Wrong username or password. Login failed."
-                });
-
-                return null;
-            }
-
+                result.AddError(ErrorCode.IncorrectPassword, IdentityErrorMessages.IncorrectPassword);
+            
             return identity;
         }
 

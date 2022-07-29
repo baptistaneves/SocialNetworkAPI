@@ -25,16 +25,12 @@ namespace SocialNetwork.Application.UserProfiles.QueryHandlers
             try
             {
                 var userProfile = await _context.UserProfiles
-                .FirstOrDefaultAsync(up => up.UserProfileId == request.UserProfileId);
+                .FirstOrDefaultAsync(up => up.UserProfileId == request.UserProfileId, cancellationToken);
 
                 if (userProfile is null)
                 {
-                    result.IsError = true;
-                    result.Errors.Add(new Error
-                    {
-                        Code = ErrorCode.NotFound,
-                        Message = $"No User Profile found with the especified ID {request.UserProfileId}"
-                    });
+                    result.AddError(ErrorCode.NotFound,
+                       string.Format(UserProfileErrorMessages.UserProfileNotFound, request.UserProfileId));
                     return result;
                 }
 
@@ -42,8 +38,7 @@ namespace SocialNetwork.Application.UserProfiles.QueryHandlers
             }
             catch (Exception ex)
             {
-                result.IsError = true;
-                result.Errors.Add(new Error { Code = ErrorCode.UnknownError, Message = ex.Message });
+                result.AddUnknownError($"{ex.Message}");
             }
             
             return result;

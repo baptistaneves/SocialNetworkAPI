@@ -8,7 +8,6 @@ namespace SocialNetwork.Application.MappingProfiles
     {
         public UserProfileMap()
         {
-            CreateMap<CreateUserCommand, BasicInfo>();
         }
     }
 }

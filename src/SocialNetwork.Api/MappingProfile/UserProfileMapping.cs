@@ -10,8 +10,7 @@ namespace SocialNetwork.Api.MappingProfile
     {
         public UserProfileMapping()
         {
-            CreateMap<UserProfileCreateUpdate, CreateUserCommand>();
-            CreateMap<UserProfileCreateUpdate, UpdateUserProfileBasicInfoCommand>();
+            CreateMap<UserProfileCreate, UpdateUserProfileBasicInfoCommand>();
             CreateMap<UserProfile, UserProfileResponse>();
             CreateMap<BasicInfo, BasicInformation>();
         }

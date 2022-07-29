@@ -25,14 +25,13 @@ namespace SocialNetwork.Application.Posts.QueryHandlers
             {
                 var post = await _context.Posts
                                 .Include(p => p.Comments)
-                                .FirstOrDefaultAsync(p => p.PostId == request.PostId);
+                                .FirstOrDefaultAsync(p => p.PostId == request.PostId, cancellationToken);
 
                 result.Payload = post.Comments.ToList();
             }
             catch (Exception ex)
             {
-                result.IsError = true;
-                result.Errors.Add(new Error { Code = ErrorCode.UnknownError, Message = ex.Message });
+                result.AddUnknownError($"{ex.Message}");
             }
 
             return result;

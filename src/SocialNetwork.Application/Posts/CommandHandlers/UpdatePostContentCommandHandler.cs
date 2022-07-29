@@ -25,55 +25,38 @@ namespace SocialNetwork.Application.Posts.CommandHandlers
 
             try
             {
-                var post = await _context.Posts.FirstOrDefaultAsync(p => p.PostId == request.PostId);
+                var post = await _context.Posts
+                    .FirstOrDefaultAsync(p => p.PostId == request.PostId, cancellationToken);
 
                 if (post is null)
                 {
-                    result.IsError = true;
-                    var error = new Error { Code = ErrorCode.NotFound, 
-                        Message = $"No Post found with ID {request.PostId}" };
-                    result.Errors.Add(error);
-
+                    result.AddError(ErrorCode.NotFound,
+                        string.Format(PostsErrorMessages.PostNotFound, request.PostId));
                     return result;
                 }
 
                 if(post.UserProfileId != request.UserProfileId)
                 {
-                    result.IsError = true;
-                    var error = new Error
-                    {
-                        Code = ErrorCode.PostUpdateNotPossible,
-                        Message = $"Post update not possible because it's not the post owner that initiates the update"
-                    };
-                    result.Errors.Add(error);
-
+                    result.AddError(ErrorCode.PostUpdateNotPossible, PostsErrorMessages.PostUpdateNotPossible);
                     return result;
                 }
 
                 post.UpdatePostText(request.NewText);
 
                 _context.Posts.Update(post);
-                await _context.SaveChangesAsync();
+                await _context.SaveChangesAsync(cancellationToken);
 
                 result.Payload = post;
-
             }
 
             catch (PostNotValidException ex)
             {
-
-                result.IsError = true;
-                ex.ValidationErrors.ForEach(error =>
-                {
-                    result.Errors.Add(new Error { Code = ErrorCode.ValidationError, Message = $"{error}" });
-                });
+                ex.ValidationErrors.ForEach(error => result.AddError(ErrorCode.ValidationError, $"{error}"));
             }
 
             catch (Exception ex)
             {
-
-                result.IsError = true;
-                result.Errors.Add(new Error { Code = ErrorCode.UnknownError, Message = ex.Message });
+                result.AddUnknownError($"{ex.Message}");
             }
 
             return result;

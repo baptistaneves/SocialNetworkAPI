@@ -25,13 +25,12 @@ namespace SocialNetwork.Application.UserProfiles.CommandHandlers
             try
             {
                 var userProfile = await _context.UserProfiles
-                            .FirstOrDefaultAsync(up => up.UserProfileId == request.UserProfileId);
+                            .FirstOrDefaultAsync(up => up.UserProfileId == request.UserProfileId, cancellationToken);
 
                 if(userProfile is null)
                 {
-                    result.IsError = true;
-                    var error = new Error { Code = ErrorCode.NotFound, Message = $"No User Profile found with ID {request.UserProfileId}" };
-                    result.Errors.Add(error);
+                    result.AddError(ErrorCode.NotFound,
+                        string.Format(UserProfileErrorMessages.UserProfileNotFound, request.UserProfileId));
                     return result;
                 }
 
@@ -42,26 +41,19 @@ namespace SocialNetwork.Application.UserProfiles.CommandHandlers
 
                 _context.UserProfiles.Update(userProfile);
 
-                await _context.SaveChangesAsync();
+                await _context.SaveChangesAsync(cancellationToken);
 
                 result.Payload = userProfile;
             }
 
             catch (UserProfileNotValidException ex)
             {
-                result.IsError = true;
-                ex.ValidationErrors.ForEach(error =>
-                {
-                    result.Errors.Add(new Error { Code = ErrorCode.ValidationError, Message = $"{error}" });
-                });
+                ex.ValidationErrors.ForEach(error => result.AddError(ErrorCode.ValidationError, $"{error}"));
             }
 
-            catch (Exception e)
+            catch (Exception ex)
             {
-                Console.WriteLine(e);
-
-                result.IsError = true;
-                result.Errors.Add(new Error { Code = ErrorCode.ServerError, Message = e.Message});
+                result.AddUnknownError($"{ex.Message}");
             }
 
             return result;

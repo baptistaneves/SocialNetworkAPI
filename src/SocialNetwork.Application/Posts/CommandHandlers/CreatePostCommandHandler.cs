@@ -26,25 +26,19 @@ namespace SocialNetwork.Application.Posts.CommandHandlers
                 var post = Post.CreatePost(request.UserProfileId, request.TextContent);
 
                 _context.Posts.Add(post);
-                await _context.SaveChangesAsync();
+                await _context.SaveChangesAsync(cancellationToken);
 
                 result.Payload = post;
             }
 
             catch (PostNotValidException ex)
             {
-
-                result.IsError = true;
-                ex.ValidationErrors.ForEach(error =>
-                {
-                    result.Errors.Add(new Error { Code = ErrorCode.ValidationError, Message = $"{error}" });
-                });
+                ex.ValidationErrors.ForEach(error => result.AddError(ErrorCode.ValidationError, $"{error}"));
             }
 
             catch (Exception ex)
             {
-                result.IsError = true;
-                result.Errors.Add(new Error { Code = ErrorCode.UnknownError, Message = ex.Message });
+                result.AddUnknownError($"{ex.Message}");
             }
 
             return result;

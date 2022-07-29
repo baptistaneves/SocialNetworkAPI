@@ -21,9 +21,9 @@ namespace SocialNetwork.Api.Controllers.V1
         }
 
         [HttpGet]
-        public async Task<ActionResult> GetAllPosts()
+        public async Task<ActionResult> GetAllPosts(CancellationToken cancellationToken)
         {
-            var result = await _mediator.Send(new GetAllPostsQuery());
+            var result = await _mediator.Send(new GetAllPostsQuery(), cancellationToken);
 
             return result.IsError ? HandleErrorResponse(result.Errors)
                 : Ok(_mapper.Map<List<PostResponse>>(result.Payload));
@@ -32,9 +32,9 @@ namespace SocialNetwork.Api.Controllers.V1
         [HttpGet]
         [Route(ApiRoutes.Post.IdRoute)]
         [ValidateGuid("{id}")]
-        public async Task<ActionResult> GetPostById(string id)
+        public async Task<ActionResult> GetPostById(string id, CancellationToken cancellationToken)
         {
-            var result = await _mediator.Send(new GetPostByIdQuery { PostId = Guid.Parse(id)});
+            var result = await _mediator.Send(new GetPostByIdQuery { PostId = Guid.Parse(id)}, cancellationToken);
 
             return result.IsError ? HandleErrorResponse(result.Errors)
                 : Ok(_mapper.Map<PostResponse>(result.Payload));
@@ -43,19 +43,19 @@ namespace SocialNetwork.Api.Controllers.V1
         [HttpDelete]
         [Route(ApiRoutes.Post.IdRoute)]
         [ValidateGuid("{id}")]
-        public async Task<ActionResult> DeletePost(string id)
+        public async Task<ActionResult> DeletePost(string id, CancellationToken cancellationToken)
         {
             var userProfileId = HttpContext.GetUserProfileIdClaimValue();
 
             var command = new DeletePostCommand { PostId = Guid.Parse(id), UserProfileId = userProfileId };
-            var result = await _mediator.Send(command);
+            var result = await _mediator.Send(command, cancellationToken);
 
             return result.IsError ? HandleErrorResponse(result.Errors) : NoContent();
         }
 
         [HttpPost]
         [ValidateModel]
-        public async Task<ActionResult> CreatePost([FromBody] PostCreate newPost)
+        public async Task<ActionResult> CreatePost([FromBody] PostCreate newPost, CancellationToken cancellationToken)
         {
             var userProfileId = HttpContext.GetUserProfileIdClaimValue();
 
@@ -65,7 +65,7 @@ namespace SocialNetwork.Api.Controllers.V1
                 TextContent = newPost.TextContent
             };
 
-            var result = await _mediator.Send(command);
+            var result = await _mediator.Send(command, cancellationToken);
             var response = _mapper.Map<PostResponse>(result.Payload);
 
             return result.IsError ? HandleErrorResponse(result.Errors) :
@@ -76,7 +76,7 @@ namespace SocialNetwork.Api.Controllers.V1
         [Route(ApiRoutes.Post.IdRoute)]
         [ValidateGuid("{id}")]
         [ValidateModel]
-        public async Task<ActionResult> UpdatePostContent(string id, [FromBody] PostUpdate updatedPost)
+        public async Task<ActionResult> UpdatePostContent(string id, [FromBody] PostUpdate updatedPost, CancellationToken cancellationToken)
         {
             var userProfileId = HttpContext.GetUserProfileIdClaimValue();
 
@@ -87,7 +87,7 @@ namespace SocialNetwork.Api.Controllers.V1
                 UserProfileId = userProfileId
             };
 
-            var response = await _mediator.Send(command);
+            var response = await _mediator.Send(command, cancellationToken);
 
             if (response.IsError) return HandleErrorResponse(response.Errors);
 
@@ -97,10 +97,10 @@ namespace SocialNetwork.Api.Controllers.V1
         [HttpGet]
         [Route(ApiRoutes.Post.PostComments)]
         [ValidateGuid("{postId}")]
-        public async Task<ActionResult> GetCommentsByPostId(string postId)
+        public async Task<ActionResult> GetCommentsByPostId(string postId, CancellationToken cancellationToken)
         {
             var query = new GetPostCommentsQuery() { PostId = Guid.Parse(postId) };
-            var result = await _mediator.Send(query);
+            var result = await _mediator.Send(query, cancellationToken);
 
             if (result.IsError) HandleErrorResponse(result.Errors);
 
@@ -112,7 +112,8 @@ namespace SocialNetwork.Api.Controllers.V1
         [Route(ApiRoutes.Post.PostComments)]
         [ValidateGuid("{postId}")]
         [ValidateModel]
-        public async Task<ActionResult> AddCommentToPost(string postId, [FromBody] PostCommentCreate comment)
+        public async Task<ActionResult> AddCommentToPost(string postId, [FromBody] PostCommentCreate comment, 
+            CancellationToken cancellationToken)
         {
             var isValidGuid = Guid.TryParse(comment.UserProfileId , out var userProfileId);
 
@@ -135,7 +136,7 @@ namespace SocialNetwork.Api.Controllers.V1
                 CommentText = comment.Text
             };
 
-            var result = await _mediator.Send(query);
+            var result = await _mediator.Send(query, cancellationToken);
             if(result.IsError) return HandleErrorResponse(result.Errors);
 
             var newComment = _mapper.Map<PostCommentResponse>(result.Payload);

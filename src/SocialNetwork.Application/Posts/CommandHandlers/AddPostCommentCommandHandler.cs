@@ -24,16 +24,13 @@ namespace SocialNetwork.Application.Posts.CommandHandlers
 
             try
             {
-                var post = await _context.Posts.FirstOrDefaultAsync(p => p.PostId == request.PostId);
+                var post = await _context.Posts.FirstOrDefaultAsync(p => p.PostId == request.PostId, 
+                    cancellationToken);
 
                 if (post is null)
                 {
-                    result.IsError = true;
-                    result.Errors.Add(new Error
-                    {
-                        Code = ErrorCode.NotFound,
-                        Message = $"No Post found with the especified ID {request.PostId}"
-                    });
+                    result.AddError(ErrorCode.NotFound, 
+                        string.Format(PostsErrorMessages.PostNotFound, request.PostId));
                     return result;
                 }
 
@@ -42,24 +39,18 @@ namespace SocialNetwork.Application.Posts.CommandHandlers
                 post.AddPostComment(comment);
 
                 _context.Posts.Update(post);
-                await _context.SaveChangesAsync();
+                await _context.SaveChangesAsync(cancellationToken);
 
                 result.Payload = comment;
             }
             catch (PostCommentNotValidException ex)
             {
-
-                result.IsError = true;
-                ex.ValidationErrors.ForEach(error =>
-                {
-                    result.Errors.Add(new Error { Code = ErrorCode.ValidationError, Message = $"{error}" });
-                });
+                ex.ValidationErrors.ForEach(error => result.AddError(ErrorCode.ValidationError, $"{error}"));
             }
 
             catch (Exception ex)
             {
-                result.IsError = true;
-                result.Errors.Add(new Error { Code = ErrorCode.UnknownError, Message = ex.Message });
+                result.AddUnknownError($"{ex.Message}");
             }
 
             return result;

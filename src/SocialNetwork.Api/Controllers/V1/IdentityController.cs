@@ -20,10 +20,10 @@ namespace SocialNetwork.Api.Controllers.V1
         [HttpPost]
         [Route(ApiRoutes.Identity.Resgistration)]
         [ValidateModel]
-        public async Task<ActionResult> Register([FromBody] UserRegistration registration)
+        public async Task<ActionResult> Register([FromBody] UserRegistration registration, CancellationToken cancellationToken)
         {
             var command = _mapper.Map<RegisterIdentityCommand>(registration);
-            var result = await _mediator.Send(command);
+            var result = await _mediator.Send(command, cancellationToken);
 
             if (result.IsError) return HandleErrorResponse(result.Errors);
 
@@ -35,10 +35,10 @@ namespace SocialNetwork.Api.Controllers.V1
         [HttpPost]
         [Route(ApiRoutes.Identity.Login)]
         [ValidateModel]
-        public async Task<ActionResult> Login([FromBody] Login login)
+        public async Task<ActionResult> Login([FromBody] Login login, CancellationToken cancellationToken)
         {
             var command = _mapper.Map<LoginCommand>(login);
-            var result = await _mediator.Send(command);
+            var result = await _mediator.Send(command, cancellationToken);
 
             if (result.IsError) return HandleErrorResponse(result.Errors);
 

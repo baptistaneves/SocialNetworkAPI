@@ -23,16 +23,14 @@ namespace SocialNetwork.Application.Posts.QueryHandlers
 
             try
             {
-                var post = await _context.Posts.FirstOrDefaultAsync(p => p.PostId == request.PostId);
+                var post = await _context.Posts
+                    .FirstOrDefaultAsync(p => p.PostId == request.PostId, cancellationToken);
 
                 if(post is null)
                 {
-                    result.IsError = true;
-                    result.Errors.Add(new Error
-                    {
-                        Code = ErrorCode.NotFound,
-                        Message = $"No post found with the especified ID {request.PostId}"
-                    });
+                    result.AddError(ErrorCode.NotFound,
+                       string.Format(PostsErrorMessages.PostNotFound, request.PostId));
+                    return result;
 
                     return result;
                 }
@@ -41,8 +39,7 @@ namespace SocialNetwork.Application.Posts.QueryHandlers
             }
             catch (Exception ex)
             {
-                result.IsError = true;
-                result.Errors.Add(new Error { Code = ErrorCode.UnknownError, Message = ex.Message });
+                result.AddUnknownError($"{ex.Message}");
             }
 
             return result;
