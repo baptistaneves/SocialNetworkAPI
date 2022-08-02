@@ -143,5 +143,46 @@ namespace SocialNetwork.Api.Controllers.V1
 
             return Ok(newComment);
         }
+
+        [HttpGet]
+        [Route(ApiRoutes.Post.PostInteractions)]
+        [ValidateGuid("{postId}")]
+        public async Task<ActionResult> GetPostInteractions(string postId, CancellationToken token)
+        {
+            var postIdGuid = Guid.Parse(postId);
+            var query = new GetPostInteractionsQuery { PostId = postIdGuid };
+            var result = await _mediator.Send(query, token);
+
+            if (result.IsError) return HandleErrorResponse(result.Errors);
+
+            var mapped = _mapper.Map<List<PostInteractionResponse>>(result.Payload);
+
+            return Ok(mapped);
+        }
+
+        [HttpPost]
+        [Route(ApiRoutes.Post.PostInteractions)]
+        [ValidateGuid("{postId}")]
+        [ValidateModel]
+        public async Task<ActionResult> AddPostInteraction(string postId, PostInteractionCreate interaction, CancellationToken token)
+        {
+            var postIdGuid = Guid.Parse(postId);
+            var userProfileId = HttpContext.GetUserProfileIdClaimValue();
+
+            var command = new AddInteractionCommand 
+            { 
+                PostId = postIdGuid, 
+                UserProfileId = userProfileId,
+                Type = interaction.Type
+            };
+
+            var result = await _mediator.Send(command, token);
+
+            if (result.IsError) return HandleErrorResponse(result.Errors);
+
+            var mapped = _mapper.Map<PostInteractionResponse>(result.Payload);
+
+            return Ok(mapped);
+        }
     }
 }

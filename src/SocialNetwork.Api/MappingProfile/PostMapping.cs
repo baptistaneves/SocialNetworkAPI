@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using SocialNetwork.Api.Contracts.Posts.Responses;
+﻿using SocialNetwork.Api.Contracts.Posts.Responses;
 using SocialNetwork.Domain.Aggregates.PostAggregate;
 
 namespace SocialNetwork.Api.MappingProfile
@@ -10,6 +9,13 @@ namespace SocialNetwork.Api.MappingProfile
         {
             CreateMap<Post, PostResponse>();
             CreateMap<PostComment, PostCommentResponse>();
+            CreateMap<PostInteraction, PostInteractionResponse>()
+                .ForMember(dest 
+                    => dest.Type, opt 
+                    => opt.MapFrom(src
+                    => src.Interaction.ToString()))
+                .ForMember(dest => dest.Author, opt => opt.MapFrom(src=> src.UserProfile));
+
         }
     }
 }

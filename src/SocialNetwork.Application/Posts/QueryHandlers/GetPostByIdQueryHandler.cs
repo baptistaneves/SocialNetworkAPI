@@ -28,10 +28,7 @@ namespace SocialNetwork.Application.Posts.QueryHandlers
 
                 if(post is null)
                 {
-                    result.AddError(ErrorCode.NotFound,
-                       string.Format(PostsErrorMessages.PostNotFound, request.PostId));
-                    return result;
-
+                    result.AddError(ErrorCode.NotFound, string.Format(PostsErrorMessages.PostNotFound, request.PostId));
                     return result;
                 }
 
