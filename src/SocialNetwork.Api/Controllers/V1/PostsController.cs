@@ -184,5 +184,31 @@ namespace SocialNetwork.Api.Controllers.V1
 
             return Ok(mapped);
         }
+
+        [HttpDelete]
+        [Route(ApiRoutes.Post.InteractionById)]
+        [ValidateGuid("postId", "interactionId")]
+        public async Task<ActionResult> RemovePostInteraction(string postId, string interactionId,
+            CancellationToken token)
+        {
+            var postGuidId = Guid.Parse(postId);
+            var interactionGuiId = Guid.Parse(interactionId);
+            var userProfileId = HttpContext.GetUserProfileIdClaimValue();
+
+            var command = new RemovePostInteractionCommand
+            {
+                PostId = postGuidId,
+                InteractionId = interactionGuiId,
+                UserProfileId = userProfileId
+            };
+
+            var result = await _mediator.Send(command, token);
+
+            if (result.IsError) return HandleErrorResponse(result.Errors);
+
+            var mapped = _mapper.Map<PostInteractionResponse>(result.Payload);
+
+            return Ok(mapped);
+        }
     }
 }

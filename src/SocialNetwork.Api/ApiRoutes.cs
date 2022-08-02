@@ -23,6 +23,7 @@
         {
             public const string Login = "login";
             public const string Resgistration = "registration";
+            public const string IdentityById = "{identityUserId}";
         }
     }
 }
