@@ -45,7 +45,8 @@ namespace SocialNetwork.Application.Posts.CommandHandlers
 
                 if(interaction.UserProfileId != request.UserProfileId)
                 {
-                    result.AddError(ErrorCode.InteractionRemovalNotAuthorized, PostsErrorMessages.InteractionRemovalNotAuthorized);
+                    result.AddError(ErrorCode.InteractionRemovalNotAuthorized, 
+                        PostsErrorMessages.InteractionRemovalNotAuthorized);
                     return result;
                 }
 

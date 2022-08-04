@@ -144,6 +144,54 @@ namespace SocialNetwork.Api.Controllers.V1
             return Ok(newComment);
         }
 
+        [HttpDelete]
+        [Route(ApiRoutes.Post.CommentById)]
+        [ValidateGuid("postId", "commentId")]
+        public async Task<ActionResult> RemoveCommentFromPost(string postId, string commentId,
+            CancellationToken token)
+        {
+            var userProfileId = HttpContext.GetUserProfileIdClaimValue();
+            var postGuid = Guid.Parse(postId);
+            var commentGuid = Guid.Parse(commentId);
+
+            var command = new RemoveCommentFromPostCommand
+            {
+                PostId = postGuid,
+                CommentId = commentGuid,
+                UserProfileId = userProfileId
+            };
+
+            var result = await _mediator.Send(command, token);
+            if (result.IsError) return HandleErrorResponse(result.Errors);
+
+            return NoContent();
+        }
+
+        [HttpPatch]
+        [Route(ApiRoutes.Post.CommentById)]
+        [ValidateGuid("postId", "commentId")]
+        [ValidateModel]
+        public async Task<ActionResult> UpdateComment(string postId, string commentId, 
+            PostCommentUpdate comment, CancellationToken token)
+        {
+            var userProfileId = HttpContext.GetUserProfileIdClaimValue();
+            var postGuid = Guid.Parse(postId);
+            var commentGuid = Guid.Parse(commentId);
+
+            var command = new UpdatePostCommentCommand
+            {
+                PostId = postGuid,
+                CommentId = commentGuid,
+                UserProfileId = userProfileId,
+                UpdatedText = comment.Text
+            };
+
+            var result = await _mediator.Send(command, token);
+            if (result.IsError) return HandleErrorResponse(result.Errors);
+
+            return NoContent();
+        }
+
         [HttpGet]
         [Route(ApiRoutes.Post.PostInteractions)]
         [ValidateGuid("{postId}")]

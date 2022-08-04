@@ -17,11 +17,14 @@
         PostUpdateNotPossible = 300,
         PostDeleteNotPossible = 301,
         InteractionRemovalNotAuthorized = 302,
-        IdentityUserDoesNotExist = 303,
-        InexistenUserProfile = 304,
-        IncorrectPassword = 305,
-        LockoutOnFailure = 306,
-        UnathorizedAccountRemoval = 307,
-        IdentityUserAlreadyExists = 308,
+        CommentRemovalNotAuthorized = 303,
+        IdentityUserDoesNotExist = 304,
+        InexistenUserProfile = 305,
+        IncorrectPassword = 306,
+        LockoutOnFailure = 307,
+        UnathorizedAccountRemoval = 308,
+        IdentityUserAlreadyExists = 309,
+        CommentUpdateNotAuthorized = 310
+
     }
 }
