@@ -115,19 +115,7 @@ namespace SocialNetwork.Api.Controllers.V1
         public async Task<ActionResult> AddCommentToPost(string postId, [FromBody] PostCommentCreate comment, 
             CancellationToken cancellationToken)
         {
-            var isValidGuid = Guid.TryParse(comment.UserProfileId , out var userProfileId);
-
-            if(!isValidGuid)
-            {
-                var apiError = new ErrorResponse();
-
-                apiError.StatusCode = 400;
-                apiError.StatusPhrase = "Bad Request";
-                apiError.Timestamp = DateTime.Now;
-                apiError.Errors.Add("The provided User profile ID is not a valid Guid format");
-
-                return BadRequest(apiError);
-            }
+            var userProfileId = HttpContext.GetUserProfileIdClaimValue();
 
             var query = new AddPostCommentCommand()
             {

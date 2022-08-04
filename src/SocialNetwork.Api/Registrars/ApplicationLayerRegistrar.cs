@@ -1,4 +1,5 @@
-﻿using SocialNetwork.Application.Services;
+﻿using SocialNetwork.Application.Identity.MappingProfiles;
+using SocialNetwork.Application.Services;
 
 namespace SocialNetwork.Api.Registrars
 {
@@ -7,6 +8,7 @@ namespace SocialNetwork.Api.Registrars
         public void RegisterServices(WebApplicationBuilder builder)
         {
             builder.Services.AddScoped<IdentityService>();
+            builder.Services.AddAutoMapper(typeof(IdentityProfiles));
         }
     }
 }

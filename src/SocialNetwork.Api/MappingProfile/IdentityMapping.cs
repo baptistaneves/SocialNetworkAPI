@@ -1,5 +1,6 @@
 ﻿using SocialNetwork.Api.Contracts.Identity;
 using SocialNetwork.Application.Identity.Commands;
+using SocialNetwork.Application.Identity.Dtos;
 
 namespace SocialNetwork.Api.MappingProfile
 {
@@ -9,6 +10,7 @@ namespace SocialNetwork.Api.MappingProfile
         {
             CreateMap<UserRegistration, RegisterIdentityCommand>();
             CreateMap<Login, LoginCommand>();
+            CreateMap<IdentityUserProfileDto, IdentityUserProfile>();
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using SocialNetwork.Api.Contracts.Identity;
 using SocialNetwork.Application.Identity.Commands;
+using SocialNetwork.Application.Identity.Queries;
 
 namespace SocialNetwork.Api.Controllers.V1
 {
@@ -27,9 +28,7 @@ namespace SocialNetwork.Api.Controllers.V1
 
             if (result.IsError) return HandleErrorResponse(result.Errors);
 
-            var authenticationResult = new AuthenticationResult() { Token = result.Payload };
-
-            return Ok(authenticationResult);
+            return Ok(_mapper.Map<IdentityUserProfile>(result.Payload));
         }
 
         [HttpPost]
@@ -42,9 +41,7 @@ namespace SocialNetwork.Api.Controllers.V1
 
             if (result.IsError) return HandleErrorResponse(result.Errors);
 
-            var authenticationResult = new AuthenticationResult() { Token = result.Payload };
-
-            return Ok(authenticationResult);
+            return Ok(_mapper.Map<IdentityUserProfile>(result.Payload));
         }
 
         [HttpDelete]
@@ -67,6 +64,21 @@ namespace SocialNetwork.Api.Controllers.V1
             if (result.IsError) return HandleErrorResponse(result.Errors);
 
             return NoContent();
+        }
+
+        [HttpGet]
+        [Route(ApiRoutes.Identity.CurrentUser)]
+        [Authorize]
+        public async Task<ActionResult> CurrentUser(CancellationToken token)
+        {
+            var identityId = HttpContext.GetIdentityIdClaimValue();
+
+            var query = new GetCurrentUserQuery { IdentityId = identityId };
+
+            var result = await _mediator.Send(query, token);
+            if (result.IsError) return HandleErrorResponse(result.Errors);
+
+            return Ok(_mapper.Map<IdentityUserProfile>(result.Payload));
         }
     }
 }

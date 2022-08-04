@@ -1,5 +1,4 @@
-﻿using MediatR;
-using SocialNetwork.Application.UserProfiles.Queries;
+﻿using SocialNetwork.Application.UserProfiles.Queries;
 
 namespace SocialNetwork.Api.Registrars
 {
